@@ -34,9 +34,15 @@ public class Main implements Study {
         ArrayList<ClassDetails> classesInInterval = new ArrayList<>();
 
         for(Commit commit : commits){
+
             if(commit.getTimestamp() >= startInterval && commit.getTimestamp() <= endInterval){
+
                 List<ClassDetails> currentClasses = commit.getModifiedClasses();
-                classesInInterval.addAll(currentClasses);
+
+                for(ClassDetails modifiedClass : currentClasses){
+                    classesInInterval.add(modifiedClass);
+                }
+
             }
         }
 
