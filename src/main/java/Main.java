@@ -8,6 +8,8 @@ import br.com.metricminer2.scm.commitrange.Commits;
 import util.TSVFile;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class Main implements Study {
@@ -35,7 +37,7 @@ public class Main implements Study {
 
         for(Commit commit : commits){
 
-            if(commit.getTimestamp() >= startInterval && commit.getTimestamp() <= endInterval){
+            if(commit.getTimestamp() >= startInterval &&  commit.getTimestamp() <= Calendar.getInstance().getTimeInMillis()){
 
                 List<ClassDetails> currentClasses = commit.getModifiedClasses();
 
