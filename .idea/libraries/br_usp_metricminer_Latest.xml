@@ -1,0 +1,55 @@
+<component name="libraryTable">
+  <library name="br.usp:metricminer:Latest" type="repository">
+    <properties maven-id="br.usp:metricminer:LATEST" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/br/usp/metricminer/2.4.1/metricminer-2.4.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/tycho/org.eclipse.jdt.core/3.10.0.v20140604-1726/org.eclipse.jdt.core-3.10.0.v20140604-1726.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/core/org.eclipse.core.runtime/3.7.0/org.eclipse.core.runtime-3.7.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/osgi/org.eclipse.osgi/3.7.1/org.eclipse.osgi-3.7.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/equinox/org.eclipse.equinox.common/3.6.0/org.eclipse.equinox.common-3.6.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/core/org.eclipse.core.jobs/3.5.100/org.eclipse.core.jobs-3.5.100.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/equinox/org.eclipse.equinox.registry/3.5.101/org.eclipse.equinox.registry-3.5.101.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/equinox/org.eclipse.equinox.preferences/3.4.1/org.eclipse.equinox.preferences-3.4.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/core/org.eclipse.core.contenttype/3.4.100/org.eclipse.core.contenttype-3.4.100.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/equinox/org.eclipse.equinox.app/1.3.100/org.eclipse.equinox.app-1.3.100.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/core/org.eclipse.core.resources/3.7.100/org.eclipse.core.resources-3.7.100.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/core/org.eclipse.core.expressions/3.4.300/org.eclipse.core.expressions-3.4.300.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/core/org.eclipse.core.filesystem/1.3.100/org.eclipse.core.filesystem-1.3.100.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/18.0/guava-18.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-log4j12/1.6.0/slf4j-log4j12-1.6.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.6.0/slf4j-api-1.6.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/log4j/log4j/1.2.14/log4j-1.2.14.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.3.1/commons-lang3-3.3.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/commons-io/commons-io/2.4/commons-io-2.4.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/antlr/antlr4-runtime/4.5/antlr4-runtime-4.5.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/abego/treelayout/org.abego.treelayout.core/1.0.1/org.abego.treelayout.core-1.0.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jgit/org.eclipse.jgit/3.4.1.201406201815-r/org.eclipse.jgit-3.4.1.201406201815-r.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/jcraft/jsch/0.1.50/jsch-0.1.50.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/googlecode/javaewah/JavaEWAH/0.7.9/JavaEWAH-0.7.9.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpclient/4.1.3/httpclient-4.1.3.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpcore/4.1.4/httpcore-4.1.4.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/commons-codec/commons-codec/1.4/commons-codec-1.4.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/thoughtworks/xstream/xstream/1.4.7/xstream-1.4.7.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/xmlpull/xmlpull/1.1.3.1/xmlpull-1.1.3.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/xpp3/xpp3_min/1.1.4c/xpp3_min-1.1.4c.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/tmatesoft/svnkit/svnkit/1.8.10/svnkit-1.8.10.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/jcraft/jsch.agentproxy.svnkit-trilead-ssh2/0.0.7/jsch.agentproxy.svnkit-trilead-ssh2-0.0.7.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/trilead/trilead-ssh2/1.0.0-build219/trilead-ssh2-1.0.0-build219.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/jcraft/jsch.agentproxy.core/0.0.7/jsch.agentproxy.core-0.0.7.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/net/java/dev/jna/jna-platform/4.1.0/jna-platform-4.1.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/net/java/dev/jna/jna/4.1.0/jna-4.1.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/jcraft/jsch.agentproxy.connector-factory/0.0.7/jsch.agentproxy.connector-factory-0.0.7.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/jcraft/jsch.agentproxy.usocket-jna/0.0.7/jsch.agentproxy.usocket-jna-0.0.7.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/net/java/dev/jna/platform/3.4.0/platform-3.4.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/jcraft/jsch.agentproxy.usocket-nc/0.0.7/jsch.agentproxy.usocket-nc-0.0.7.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/jcraft/jsch.agentproxy.sshagent/0.0.7/jsch.agentproxy.sshagent-0.0.7.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/jcraft/jsch.agentproxy.pageant/0.0.7/jsch.agentproxy.pageant-0.0.7.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/de/regnis/q/sequence/sequence-library/1.0.3/sequence-library-1.0.3.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/tmatesoft/sqljet/sqljet/1.1.10/sqljet-1.1.10.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/antlr/antlr-runtime/3.4/antlr-runtime-3.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
