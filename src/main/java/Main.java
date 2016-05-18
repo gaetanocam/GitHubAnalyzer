@@ -9,7 +9,6 @@ import util.TSVFile;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class Main implements Study {
@@ -37,7 +36,7 @@ public class Main implements Study {
 
         for(Commit commit : commits){
 
-            if(commit.getTimestamp() >= startInterval &&  commit.getTimestamp() <= Calendar.getInstance().getTimeInMillis()){
+            if(commit.getTimestamp() >= startInterval && commit.getTimestamp() <= Calendar.getInstance().getTimeInMillis()){
 
                 List<ClassDetails> currentClasses = commit.getModifiedClasses();
 
@@ -46,6 +45,10 @@ public class Main implements Study {
                 }
 
             }
+        }
+
+        for(ClassDetails classed : classesInInterval){
+            System.out.println("asdasd "+classed);
         }
 
 
