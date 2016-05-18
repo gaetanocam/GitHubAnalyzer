@@ -1,3 +1,4 @@
+import bean.ClassDetails;
 import bean.Commit;
 import br.com.metricminer2.MetricMiner2;
 import br.com.metricminer2.RepositoryMining;
@@ -7,6 +8,7 @@ import br.com.metricminer2.scm.commitrange.Commits;
 import util.TSVFile;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Main implements Study {
     ArrayList<Commit> commits;
@@ -26,5 +28,18 @@ public class Main implements Study {
                 .mine();
 
         commits = myVisitor.getCommits();
+
+        long startInterval = 1463585400;
+        long endInterval = 1463594400;
+        ArrayList<ClassDetails> classesInInterval = new ArrayList<>();
+
+        for(Commit commit : commits){
+            if(commit.getTimestamp() >= startInterval && commit.getTimestamp() <= endInterval){
+                List<ClassDetails> currentClasses = commit.getModifiedClasses();
+                classesInInterval.addAll(currentClasses);
+            }
+        }
+
+
     }
 }
