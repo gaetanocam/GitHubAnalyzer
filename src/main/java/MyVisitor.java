@@ -1,6 +1,7 @@
 import bean.ClassDetails;
 import br.com.metricminer2.domain.Commit;
 import br.com.metricminer2.domain.Modification;
+import br.com.metricminer2.domain.ModificationType;
 import br.com.metricminer2.parser.jdt.JDTRunner;
 import br.com.metricminer2.persistence.PersistenceMechanism;
 import br.com.metricminer2.scm.CommitVisitor;
@@ -11,9 +12,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Placido Russo on 10/05/2016.
@@ -21,6 +20,9 @@ import java.util.Map;
 public class MyVisitor implements CommitVisitor {
     private ArrayList<bean.Commit> commits = new ArrayList<>();
     private Map<String, Integer> files;
+    //List of list of classDetails present in each commit
+    //Repository status for each commit
+    private ArrayList<HashMap<String, ArrayList<ClassDetails>>> commitsHistory = new ArrayList<>();
 
     public MyVisitor() {
         this.files = new Hashtable<String, Integer>();
@@ -35,10 +37,14 @@ public class MyVisitor implements CommitVisitor {
         currentCommit.setAuthor(commit.getAuthor().toString());
         currentCommit.setTimestamp(commit.getDate().getTimeInMillis());
 
-        ArrayList<ClassDetails> modificationsList = new ArrayList<>();
+        //key = path, value = list of classDetails
+        HashMap<String, ArrayList<ClassDetails>> modificationsMap = new HashMap<>();
+        if (!commitsHistory.isEmpty()) {
+            //copying modificationsMap of previous commit into current modificationsMap
+            modificationsMap = new HashMap<>(commitsHistory.get(commitsHistory.size()-1));
+        }
 
         for(Modification m : commit.getModifications()) {
-            if(m.wasDeleted()) continue;
 
             System.out.println("\nModification:");
             ArrayList<ClassDetails> currentList;
@@ -70,7 +76,7 @@ public class MyVisitor implements CommitVisitor {
                     int startLine = Integer.parseInt(line.substring(line.indexOf('+')+1, line.lastIndexOf(',')));
                     lineCounter = startLine-1;
                 }
-                else if (trimmedLine.startsWith("+")) {
+                else if (trimmedLine.startsWith("+")  && !trimmedLine.startsWith("+++")) {
                     lineCounter++;
                     for (ClassDetails currentClass : currentList) {
                         if (!currentClass.isModified() &&
@@ -78,9 +84,8 @@ public class MyVisitor implements CommitVisitor {
                             currentClass.setModified(true);
                         }
                     }
-                    //asdasdsad
                 }
-                else if (trimmedLine.startsWith("-")) {
+                else if (trimmedLine.startsWith("-")  && !line.startsWith("---")) {
                     //when a line is removed
                     for (ClassDetails currentClass : currentList) {
                         if (!currentClass.isModified() &&
@@ -91,6 +96,27 @@ public class MyVisitor implements CommitVisitor {
                 }
                 else {
                     lineCounter++;
+                }
+
+            }
+
+            //Update history of commits
+            //first commit case
+            if (commitsHistory.isEmpty())
+                modificationsMap.put(m.getNewPath(), currentList);
+            else {
+                //3 cases:
+                //1- file added
+                if (m.getType() == ModificationType.ADD) {
+                    modificationsMap.put(m.getNewPath(), currentList);
+                }
+                //2- file deleted
+                else if (m.getType() == ModificationType.DELETE) {
+                    modificationsMap.remove(m.getNewPath());
+                }
+                //3- file modified
+                else if (m.getType() == ModificationType.MODIFY) {
+                    modificationsMap.replace(m.getNewPath(), currentList);
                 }
             }
 
@@ -111,6 +137,8 @@ public class MyVisitor implements CommitVisitor {
             e.printStackTrace();
         }
 
+        //add modificationsMap to list of commits
+        commitsHistory.add(modificationsMap);
 
         //scrive su file TSV
         writer.write(
@@ -120,6 +148,10 @@ public class MyVisitor implements CommitVisitor {
                 files
         );
 
+    }
+
+    public ArrayList<HashMap<String, ArrayList<ClassDetails>>> getCommitsHistory() {
+        return commitsHistory;
     }
 
     public Map<String, Integer> getFiles() {

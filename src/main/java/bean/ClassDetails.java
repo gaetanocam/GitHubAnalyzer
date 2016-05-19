@@ -54,4 +54,10 @@ public class ClassDetails {
     public String toString() {
         return name;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        ClassDetails classDetails = (ClassDetails) obj;
+        return (this.name == classDetails.getName() && this.path == classDetails.getPath());
+    }
 }
