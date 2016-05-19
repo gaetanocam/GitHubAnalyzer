@@ -62,7 +62,7 @@ public class ClassDetails {
 
     @Override
     public String toString() {
-        return (modified ? "SI: "+name : "NO");
+        return (modified ? "SI: "+name : "NO"+name);
     }
 
     @Override
