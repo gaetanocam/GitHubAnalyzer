@@ -10,6 +10,14 @@ public class ClassDetails {
     private int endIndex;
     private boolean modified = false;
 
+    public ClassDetails(ClassDetails obj) {
+        this.path = obj.getPath();
+        this.name = obj.getName();
+        this.startIndex = obj.getStartIndex();
+        this.endIndex = obj.getEndIndex();
+        this.modified = obj.isModified();
+    }
+
     public boolean isModified() {
         return modified;
     }
@@ -52,7 +60,7 @@ public class ClassDetails {
 
     @Override
     public String toString() {
-        return name;
+        return (modified ? "SI: "+name : "NO");
     }
 
     @Override

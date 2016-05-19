@@ -53,7 +53,7 @@ public class Main implements Study {
                 }
                 System.out.print("]");
             }
-            System.out.print("}");
+            System.out.print("} ");
         }
     }
 }

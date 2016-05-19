@@ -46,8 +46,13 @@ public class MyVisitor implements CommitVisitor {
             //set to false modified parameter for each class
             Set<String> keySet = modificationsMap.keySet();
             for (String key : keySet) {
-                for (ClassDetails currentClass : modificationsMap.get(key)) {
+                ArrayList<ClassDetails> prevList = modificationsMap.get(key);
+                ArrayList<ClassDetails> currentList = modificationsMap.get(key);
+                modificationsMap.replace(key, new ArrayList<>());
+                for (ClassDetails prevClass : prevList) {
+                    ClassDetails currentClass = new ClassDetails(prevClass);
                     currentClass.setModified(false);
+                    currentList.add(currentClass);
                 }
             }
         }
