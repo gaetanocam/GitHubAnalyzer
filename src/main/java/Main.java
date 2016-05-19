@@ -31,9 +31,5 @@ public class Main implements Study {
         commits = myVisitor.getCommits();
 
 
-
-
-
-
     }
 }

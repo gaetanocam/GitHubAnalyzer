@@ -15,7 +15,7 @@ public class Metric {
         ArrayList<ClassDetails> classesInInterval = new ArrayList<>();
         for(Commit commit : commits){
 
-            if(commit.getTimestamp() >= startInterval && commit.getTimestamp() <= Calendar.getInstance().getTimeInMillis()){
+            if(commit.getTimestamp() >= startInterval && commit.getTimestamp() <= endInterval){
 
                 List<ClassDetails> currentClasses = commit.getModifiedClasses();
 
