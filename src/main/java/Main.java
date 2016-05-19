@@ -30,30 +30,9 @@ public class Main implements Study {
 
         commits = myVisitor.getCommits();
 
-        long startInterval = 1463665538279L;
-        long endInterval = 1463594400;
-        ArrayList<ClassDetails> classesInInterval = new ArrayList<>();
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(startInterval);
-        System.out.println(calendar.getTime());
 
-        for(Commit commit : commits){
 
-            if(commit.getTimestamp() >= startInterval && commit.getTimestamp() <= Calendar.getInstance().getTimeInMillis()){
-
-                List<ClassDetails> currentClasses = commit.getModifiedClasses();
-
-                for(ClassDetails modifiedClass : currentClasses){
-                    classesInInterval.add(modifiedClass);
-                }
-
-            }
-        }
-
-        for(ClassDetails classed : classesInInterval){
-            System.out.println("asdasd "+classed);
-        }
 
 
     }
