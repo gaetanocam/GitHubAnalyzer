@@ -13,9 +13,7 @@ import com.google.common.collect.Lists;
 import util.ReverseAllCommits;
 import util.TSVFile;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
 public class Main implements Study {
     ArrayList<Commit> commits;
@@ -42,5 +40,18 @@ public class Main implements Study {
 
         System.out.println("HISTORY:");
         System.out.println(myVisitor.getCommitsHistory().toString());
+        System.out.println("HISTORY OF MODIFIED CLASSES: ");
+        for (HashMap<String, ArrayList<ClassDetails>> map :
+                myVisitor.getCommitsHistory()) {
+            Set<String> keySet = map.keySet();
+            for (String key : keySet) {
+                System.out.print("[");
+                for (ClassDetails currentClass : map.get(key)) {
+                    if (currentClass.isModified())
+                        System.out.print(currentClass+" ");
+                }
+            }
+            System.out.print("]");
+        }
     }
 }
