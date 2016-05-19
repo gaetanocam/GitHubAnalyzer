@@ -30,7 +30,7 @@ public class Main implements Study {
 
         commits = myVisitor.getCommits();
 
-        long startInterval = 1463585400;
+        long startInterval = 1463671800;
         long endInterval = 1463594400;
         ArrayList<ClassDetails> classesInInterval = new ArrayList<>();
 
