@@ -10,6 +10,7 @@ import br.com.metricminer2.scm.commitrange.AllCommits;
 import br.com.metricminer2.scm.commitrange.CommitRange;
 import br.com.metricminer2.scm.commitrange.Commits;
 import com.google.common.collect.Lists;
+import util.ReverseAllCommits;
 import util.TSVFile;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class Main implements Study {
         new RepositoryMining()
                 .in(GitRepository.singleProject(Costants.LOCAL_REPO_PATH))
                 //.through(Commits.all())
-                .through((CommitRange) Lists.reverse(commitRange.get((SCM) scm)))
+                .through(new ReverseAllCommits())
                 .process(myVisitor,
                         new TSVFile(Costants.LOCAL_REPO_PATH+"\\"+Costants.FILE_NAME))
                 .mine();
