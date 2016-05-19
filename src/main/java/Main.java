@@ -30,10 +30,7 @@ public class Main implements Study {
 
         commits = myVisitor.getCommits();
 
-
-
-
-
-
+        System.out.println("HISTORY:");
+        System.out.println(myVisitor.getCommitsHistory().toString());
     }
 }

@@ -150,6 +150,10 @@ public class MyVisitor implements CommitVisitor {
 
     }
 
+    public ArrayList<HashMap<String, ArrayList<ClassDetails>>> getCommitsHistory() {
+        return commitsHistory;
+    }
+
     public Map<String, Integer> getFiles() {
         return files;
     }
