@@ -34,6 +34,10 @@ public class Main implements Study {
         long endInterval = 1463594400;
         ArrayList<ClassDetails> classesInInterval = new ArrayList<>();
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(startInterval);
+        System.out.println(calendar.getTime());
+
         for(Commit commit : commits){
 
             if(commit.getTimestamp() >= startInterval && commit.getTimestamp() <= Calendar.getInstance().getTimeInMillis()){
