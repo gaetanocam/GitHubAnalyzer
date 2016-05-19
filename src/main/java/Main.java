@@ -26,12 +26,11 @@ public class Main implements Study {
     public void execute() {
         MyVisitor myVisitor = new MyVisitor();
 
-        SCMRepository scm = GitRepository.singleProject(Costants.LOCAL_REPO_PATH);
+        SCM scm = (SCM) GitRepository.singleProject(Costants.LOCAL_REPO_PATH);
         CommitRange commitRange = Commits.all();
 
         new RepositoryMining()
-                //.in(GitRepository.singleProject(Costants.LOCAL_REPO_PATH))
-                .in(scm)
+                .in(GitRepository.singleProject(Costants.LOCAL_REPO_PATH))
                 //.through(Commits.all())
                 .through((CommitRange) Lists.reverse(commitRange.get((SCM) scm)))
                 .process(myVisitor,
