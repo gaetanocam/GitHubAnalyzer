@@ -4,7 +4,12 @@ import br.com.metricminer2.MetricMiner2;
 import br.com.metricminer2.RepositoryMining;
 import br.com.metricminer2.Study;
 import br.com.metricminer2.scm.GitRepository;
+import br.com.metricminer2.scm.SCM;
+import br.com.metricminer2.scm.SCMRepository;
+import br.com.metricminer2.scm.commitrange.AllCommits;
+import br.com.metricminer2.scm.commitrange.CommitRange;
 import br.com.metricminer2.scm.commitrange.Commits;
+import com.google.common.collect.Lists;
 import util.TSVFile;
 
 import java.util.ArrayList;
@@ -21,9 +26,14 @@ public class Main implements Study {
     public void execute() {
         MyVisitor myVisitor = new MyVisitor();
 
+        SCMRepository scm = GitRepository.singleProject(Costants.LOCAL_REPO_PATH);
+        CommitRange commitRange = Commits.all();
+
         new RepositoryMining()
-                .in(GitRepository.singleProject(Costants.LOCAL_REPO_PATH))
-                .through(Commits.all())
+                //.in(GitRepository.singleProject(Costants.LOCAL_REPO_PATH))
+                .in(scm)
+                //.through(Commits.all())
+                .through((CommitRange) Lists.reverse(commitRange.get((SCM) scm)))
                 .process(myVisitor,
                         new TSVFile(Costants.LOCAL_REPO_PATH+"\\"+Costants.FILE_NAME))
                 .mine();
