@@ -26,7 +26,7 @@ public class Main implements Study {
     public void execute() {
         MyVisitor myVisitor = new MyVisitor();
 
-        SCM scm = (SCM) GitRepository.singleProject(Costants.LOCAL_REPO_PATH);
+        SCMRepository scm = GitRepository.singleProject(Costants.LOCAL_REPO_PATH);
         CommitRange commitRange = Commits.all();
 
         new RepositoryMining()
