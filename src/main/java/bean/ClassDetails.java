@@ -10,6 +10,8 @@ public class ClassDetails {
     private int endIndex;
     private boolean modified = false;
 
+    public ClassDetails() {}
+
     public ClassDetails(ClassDetails obj) {
         this.path = obj.getPath();
         this.name = obj.getName();
