@@ -49,7 +49,7 @@ public class Main implements Study {
                 System.out.print("[");
                 for (ClassDetails currentClass : map.get(key)) {
                     if (currentClass.isModified())
-                        System.out.print(currentClass+" ");
+                        System.out.print(" "+currentClass+" ");
                 }
                 System.out.print("]");
             }
