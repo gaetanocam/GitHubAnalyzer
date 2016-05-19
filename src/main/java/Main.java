@@ -44,14 +44,16 @@ public class Main implements Study {
         for (HashMap<String, ArrayList<ClassDetails>> map :
                 myVisitor.getCommitsHistory()) {
             Set<String> keySet = map.keySet();
+            System.out.print("{");
             for (String key : keySet) {
                 System.out.print("[");
                 for (ClassDetails currentClass : map.get(key)) {
                     if (currentClass.isModified())
                         System.out.print(currentClass+" ");
                 }
+                System.out.print("]");
             }
-            System.out.print("]");
+            System.out.print("}");
         }
     }
 }
