@@ -42,6 +42,19 @@ public class MyVisitor implements CommitVisitor {
         if (!commitsHistory.isEmpty()) {
             //copying modificationsMap of previous commit into current modificationsMap
             modificationsMap = new HashMap<>(commitsHistory.get(commitsHistory.size()-1));
+
+            //set to false modified parameter for each class
+            Set<String> keySet = modificationsMap.keySet();
+            for (String key : keySet) {
+                ArrayList<ClassDetails> prevList = modificationsMap.get(key);
+                ArrayList<ClassDetails> currentList = new ArrayList<>();
+                modificationsMap.replace(key, currentList);
+                for (ClassDetails prevClass : prevList) {
+                    ClassDetails currentClass = new ClassDetails(prevClass);
+                    currentClass.setModified(false);
+                    currentList.add(currentClass);
+                }
+            }
         }
 
         for(Modification m : commit.getModifications()) {
