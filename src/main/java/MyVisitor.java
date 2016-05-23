@@ -150,11 +150,6 @@ public class MyVisitor implements CommitVisitor {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        try {
-            mapper.writeValue(new File("\\commits.json"), commits);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         commitsWriter.append(""+commit.getDate().getTimeInMillis());
         String[] keys = (String[])modificationsMap.keySet().toArray();
