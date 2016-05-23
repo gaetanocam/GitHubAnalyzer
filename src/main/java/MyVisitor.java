@@ -34,7 +34,7 @@ public class MyVisitor implements CommitVisitor {
         }
     }
 
-    public ArrayList<bean.Commit> getCommits() { return commits; }
+    public ArrayList<bean.Commit> getCommits() { commitsWriter.close();return commits; }
 
     public void process(SCMRepository scmRepository, Commit commit, PersistenceMechanism writer) {
 
