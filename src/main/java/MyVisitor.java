@@ -8,9 +8,7 @@ import br.com.metricminer2.scm.CommitVisitor;
 import br.com.metricminer2.scm.SCMRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -20,12 +18,20 @@ import java.util.*;
 public class MyVisitor implements CommitVisitor {
     private ArrayList<bean.Commit> commits = new ArrayList<>();
     private Map<String, Integer> files;
+    PrintWriter commitsWriter;
     //List of list of classDetails present in each commit
     //Repository status for each commit
     private ArrayList<HashMap<String, ArrayList<ClassDetails>>> commitsHistory = new ArrayList<>();
 
     public MyVisitor() {
         this.files = new Hashtable<String, Integer>();
+        try {
+            this.commitsWriter = new PrintWriter(".\\commitsLog.txt", "UTF-8");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 
     public ArrayList<bean.Commit> getCommits() { return commits; }
@@ -145,10 +151,25 @@ public class MyVisitor implements CommitVisitor {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            mapper.writeValue(new File(".\\commits.json"), commits);
+            mapper.writeValue(new File("\\commits.json"), commits);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        commitsWriter.append(""+commit.getDate().getTimeInMillis());
+        String[] keys = (String[])modificationsMap.keySet().toArray();
+            for (int j = 0; j < keys.length; j++) {
+                ArrayList<ClassDetails> classes = modificationsMap.get(keys[j]);
+                for (int i = 0; i < classes.size(); i++) {
+                    int modificationNumber = classes.get(i).isModified() ? 1 : 0;
+                    commitsWriter.append(" " + classes.get(i) + " " + modificationNumber);
+
+                    if(i == (classes.size() -1)){
+                        commitsWriter.append("/n");
+                    }
+                }
+
+            }
 
         //add modificationsMap to list of commits
         commitsHistory.add(modificationsMap);
@@ -160,6 +181,8 @@ public class MyVisitor implements CommitVisitor {
                 commit.getAuthor(),
                 files
         );
+
+
 
     }
 
