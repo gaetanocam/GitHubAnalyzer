@@ -152,9 +152,9 @@ public class MyVisitor implements CommitVisitor {
 
 
         commitsWriter.append(""+commit.getDate().getTimeInMillis());
-        String[] keys = (String[])modificationsMap.keySet().toArray();
-            for (int j = 0; j < keys.length; j++) {
-                ArrayList<ClassDetails> classes = modificationsMap.get(keys[j]);
+        Set<String> keys = modificationsMap.keySet();
+            for (String key : keys) {
+                ArrayList<ClassDetails> classes = modificationsMap.get(key);
                 for (int i = 0; i < classes.size(); i++) {
                     int modificationNumber = classes.get(i).isModified() ? 1 : 0;
                     commitsWriter.append(" " + classes.get(i) + " " + modificationNumber);
