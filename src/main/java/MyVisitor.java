@@ -159,12 +159,11 @@ public class MyVisitor implements CommitVisitor {
                     int modificationNumber = classes.get(i).isModified() ? 1 : 0;
                     commitsWriter.append(" " + classes.get(i) + " " + modificationNumber);
 
-                    if(i == (classes.size() -1)){
-                        commitsWriter.append("/n");
-                    }
                 }
 
             }
+
+        commitsWriter.append("\n");
 
         //add modificationsMap to list of commits
         commitsHistory.add(modificationsMap);
