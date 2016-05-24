@@ -21,7 +21,7 @@ public class MyVisitor implements CommitVisitor {
     PrintWriter commitsWriter;
     //List of list of classDetails present in each commit
     //Repository status for each commit
-    private ArrayList<HashMap<String, ArrayList<ClassDetails>>> commitsHistory = new ArrayList<>();
+    private ArrayList<HashMap<String, ArrayList<ClassDetails>>> commitsHistory = new ArrayList<HashMap<String, ArrayList<ClassDetails>>>();
     private ArrayList<String> allClasses = new ArrayList<>();
 
     public MyVisitor() {
