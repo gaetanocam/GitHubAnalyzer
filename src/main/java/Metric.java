@@ -12,7 +12,7 @@ public class Metric {
 
     public static List<ClassDetails> ClassBetweenInterval(List<Commit> commits, long startInterval, long endInterval ){
 
-        ArrayList<ClassDetails> classesInInterval = new ArrayList<>();
+        ArrayList<ClassDetails> classesInInterval = new ArrayList<ClassDetails>();
         for(Commit commit : commits){
 
             if(commit.getTimestamp() >= startInterval && commit.getTimestamp() <= endInterval){

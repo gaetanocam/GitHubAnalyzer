@@ -9,7 +9,7 @@ import java.util.HashMap;
  */
 public class JavaClassVisitor extends ASTVisitor {
     private String path;
-    ArrayList<ClassDetails> modifiedClasses = new ArrayList<>();
+    ArrayList<ClassDetails> modifiedClasses = new ArrayList<ClassDetails>();
 
     public JavaClassVisitor(String path) {
         this.path = path;

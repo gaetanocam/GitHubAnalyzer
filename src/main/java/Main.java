@@ -41,7 +41,7 @@ public class Main implements Study {
 
         commits = myVisitor.getCommits();
 
-        HashSet<String> hashSet = new HashSet<>(myVisitor.getAllClasses());
+        HashSet<String> hashSet = new HashSet<String>(myVisitor.getAllClasses());
         try {
             PrintWriter printWriter = new PrintWriter("classesList.txt", "UTF-8");
 

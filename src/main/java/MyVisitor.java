@@ -16,7 +16,7 @@ import java.util.*;
  * Created by Placido Russo on 10/05/2016.
  */
 public class MyVisitor implements CommitVisitor {
-    private ArrayList<bean.Commit> commits = new ArrayList<>();
+    private ArrayList<bean.Commit> commits = new ArrayList<bean.Commit>();
     private Map<String, Integer> files;
     PrintWriter commitsWriter;
     //List of list of classDetails present in each commit
