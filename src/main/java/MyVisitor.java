@@ -22,7 +22,7 @@ public class MyVisitor implements CommitVisitor {
     //List of list of classDetails present in each commit
     //Repository status for each commit
     private ArrayList<HashMap<String, ArrayList<ClassDetails>>> commitsHistory = new ArrayList<HashMap<String, ArrayList<ClassDetails>>>();
-    private ArrayList<String> allClasses = new ArrayList<>();
+    private ArrayList<String> allClasses = new ArrayList<String>();
 
     public MyVisitor() {
         this.files = new Hashtable<String, Integer>();
