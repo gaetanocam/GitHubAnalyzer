@@ -22,6 +22,7 @@ public class MyVisitor implements CommitVisitor {
     //List of list of classDetails present in each commit
     //Repository status for each commit
     private ArrayList<HashMap<String, ArrayList<ClassDetails>>> commitsHistory = new ArrayList<>();
+    private ArrayList<String> allClasses = new ArrayList<>();
 
     public MyVisitor() {
         this.files = new Hashtable<String, Integer>();
@@ -156,9 +157,10 @@ public class MyVisitor implements CommitVisitor {
             for (String key : keys) {
                 ArrayList<ClassDetails> classes = modificationsMap.get(key);
                 for (int i = 0; i < classes.size(); i++) {
-                    int modificationNumber = classes.get(i).isModified() ? 1 : 0;
-                    commitsWriter.append(" " + classes.get(i).getPath()+"/"+classes.get(i) + " " + modificationNumber);
-
+                    ClassDetails classDetails = classes.get(i);
+                    int modificationNumber = classDetails.isModified() ? 1 : 0;
+                    commitsWriter.append(" " + classDetails.getPath()+"/"+ classDetails + " " + modificationNumber);
+                    allClasses.add(classDetails.getPath()+"/"+classDetails.getName());
                 }
 
             }
@@ -200,5 +202,9 @@ public class MyVisitor implements CommitVisitor {
 
     public String name() {
         return "MyVisitor";
+    }
+
+    public ArrayList<String> getAllClasses() {
+        return allClasses;
     }
 }

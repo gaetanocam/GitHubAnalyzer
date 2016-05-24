@@ -13,6 +13,9 @@ import com.google.common.collect.Lists;
 import util.ReverseAllCommits;
 import util.TSVFile;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 public class Main implements Study {
@@ -38,22 +41,19 @@ public class Main implements Study {
 
         commits = myVisitor.getCommits();
 
-        System.out.println("HISTORY:");
-        System.out.println(myVisitor.getCommitsHistory().toString());
-        System.out.println("HISTORY OF MODIFIED CLASSES: ");
-        for (HashMap<String, ArrayList<ClassDetails>> map :
-                myVisitor.getCommitsHistory()) {
-            Set<String> keySet = map.keySet();
-            System.out.print("{");
-            for (String key : keySet) {
-                System.out.print("[");
-                for (ClassDetails currentClass : map.get(key)) {
-                    if (currentClass.isModified())
-                        System.out.print(" "+currentClass+" ");
-                }
-                System.out.print("]");
+        HashSet<String> hashSet = new HashSet<>(myVisitor.getAllClasses());
+        try {
+            PrintWriter printWriter = new PrintWriter("classesList.txt", "UTF-8");
+
+            for(String clas : hashSet){
+                printWriter.append(clas + "\n");
             }
-            System.out.print("} ");
+
+            printWriter.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
     }
 }
