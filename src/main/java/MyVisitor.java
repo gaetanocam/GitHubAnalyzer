@@ -45,7 +45,7 @@ public class MyVisitor implements CommitVisitor {
         currentCommit.setTimestamp(commit.getDate().getTimeInMillis());
 
         //key = path, value = list of classDetails
-        HashMap<String, ArrayList<ClassDetails>> modificationsMap = new HashMap<>();
+        HashMap<String, ArrayList<ClassDetails>> modificationsMap = new HashMap<String, ArrayList<ClassDetails>>();
         if (!commitsHistory.isEmpty()) {
             //copying modificationsMap of previous commit into current modificationsMap
             modificationsMap = new HashMap<>(commitsHistory.get(commitsHistory.size()-1));
