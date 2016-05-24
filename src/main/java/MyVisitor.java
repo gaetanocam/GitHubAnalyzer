@@ -6,7 +6,6 @@ import br.com.metricminer2.parser.jdt.JDTRunner;
 import br.com.metricminer2.persistence.PersistenceMechanism;
 import br.com.metricminer2.scm.CommitVisitor;
 import br.com.metricminer2.scm.SCMRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -149,7 +148,6 @@ public class MyVisitor implements CommitVisitor {
             plusOne(m.getNewPath());
         }
 
-        ObjectMapper mapper = new ObjectMapper();
 
 
         commitsWriter.append(""+commit.getDate().getTimeInMillis());
@@ -169,15 +167,6 @@ public class MyVisitor implements CommitVisitor {
 
         //add modificationsMap to list of commits
         commitsHistory.add(modificationsMap);
-
-        //scrive su file TSV
-        writer.write(
-                commit.getHash(),
-                new SimpleDateFormat("YYYY-MM-dd HH:mm:ss").format(commit.getDate().getTime()),
-                commit.getAuthor(),
-                files
-        );
-
 
 
     }
