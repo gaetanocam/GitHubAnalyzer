@@ -157,7 +157,7 @@ public class MyVisitor implements CommitVisitor {
                 for (int i = 0; i < classes.size(); i++) {
                     ClassDetails classDetails = classes.get(i);
                     int modificationNumber = classDetails.isModified() ? 1 : 0;
-                    commitsWriter.append(commit.getDate().getTimeInMillis() + " " + classDetails.getPath()+"/"+ classDetails + " " + modificationNumber);
+                    commitsWriter.append(" " + classDetails.getPath()+"/"+ classDetails + " " + modificationNumber);
                     allClasses.add(classDetails.getPath()+"/"+classDetails.getName());
                 }
 
