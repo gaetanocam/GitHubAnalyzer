@@ -5,6 +5,6 @@ public class Costants {
 
     public final static String LOCAL_REPO_PATH = "repo";
     public final static String FILE_NAME = "result.tsv";
-    public final static String SETTINGS_PATH = "settings.ini";
-    public final static String OUTPUT_DIR_PATH = "../output";
+    public final static String SETTINGS_PATH = "..//settings.ini";
+    public final static String OUTPUT_DIR_PATH = "..//output";
 }
