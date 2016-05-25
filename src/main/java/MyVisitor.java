@@ -17,7 +17,6 @@ import java.util.*;
 public class MyVisitor implements CommitVisitor {
     private ArrayList<bean.Commit> commits = new ArrayList<bean.Commit>();
     private Map<String, Integer> files;
-    PrintWriter commitsWriter;
     //List of list of classDetails present in each commit
     //Repository status for each commit
     private ArrayList<HashMap<String, ArrayList<ClassDetails>>> commitsHistory = new ArrayList<HashMap<String, ArrayList<ClassDetails>>>();
@@ -25,16 +24,9 @@ public class MyVisitor implements CommitVisitor {
 
     public MyVisitor() {
         this.files = new Hashtable<String, Integer>();
-        try {
-            this.commitsWriter = new PrintWriter(".\\commitsLog.txt", "UTF-8");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
     }
 
-    public ArrayList<bean.Commit> getCommits() { commitsWriter.close();return commits; }
+    public ArrayList<bean.Commit> getCommits() { return commits; }
 
     public void process(SCMRepository scmRepository, Commit commit, PersistenceMechanism writer) {
 
@@ -65,7 +57,6 @@ public class MyVisitor implements CommitVisitor {
 
         for(Modification m : commit.getModifications()) {
 
-            System.out.println("\nModification:");
             ArrayList<ClassDetails> currentList;
 
             try {
@@ -142,33 +133,27 @@ public class MyVisitor implements CommitVisitor {
             currentCommit.setModifiedClasses(currentList);
             commits.add(currentCommit);
 
-            System.out.println("Nostro commit: "+currentCommit.toString());
-
-
             plusOne(m.getNewPath());
         }
 
-
-
-        commitsWriter.append(""+commit.getDate().getTimeInMillis());
+        String line = "";
         Set<String> keys = modificationsMap.keySet();
             for (String key : keys) {
                 ArrayList<ClassDetails> classes = modificationsMap.get(key);
                 for (int i = 0; i < classes.size(); i++) {
                     ClassDetails classDetails = classes.get(i);
                     int modificationNumber = classDetails.isModified() ? 1 : 0;
-                    commitsWriter.append(" " + classDetails.getPath()+"/"+ classDetails + " " + modificationNumber);
+                    line = line + (" " + classDetails.getPath()+"/"+ classDetails + " " + modificationNumber);
                     allClasses.add(classDetails.getPath()+"/"+classDetails.getName());
                 }
 
             }
+            
+            writer.write(commit.getDate().getTimeInMillis(),line);
 
-        commitsWriter.append("\n");
 
         //add modificationsMap to list of commits
         commitsHistory.add(modificationsMap);
-
-
     }
 
     public ArrayList<HashMap<String, ArrayList<ClassDetails>>> getCommitsHistory() {
