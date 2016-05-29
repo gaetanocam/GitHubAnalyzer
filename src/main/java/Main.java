@@ -82,7 +82,7 @@ public class Main implements Study {
                 .in(GitRepository.singleProject(Costants.LOCAL_REPO_PATH))
                 //.through(Commits.all())
                 .through(new ReverseAllCommits())
-                .process(myVisitor, new TSVFile(Costants.OUTPUT_DIR_PATH+"\\commitsLog.txt") )
+                .process(myVisitor, new TSVFile(Costants.OUTPUT_DIR_PATH+"//commitsLog.txt") )
                 .mine();
 
         commits = myVisitor.getCommits();
@@ -90,7 +90,7 @@ public class Main implements Study {
         HashSet<String> hashSet = new HashSet<String>(myVisitor.getAllClasses());
         if(hashSet.size() > 0){
         	try {
-                PrintWriter printWriter = new PrintWriter(Costants.OUTPUT_DIR_PATH+"\\classesList.txt", "UTF-8");
+                PrintWriter printWriter = new PrintWriter(Costants.OUTPUT_DIR_PATH+"//classesList.txt", "UTF-8");
 
                 for(String clas : hashSet){
                     printWriter.append(clas + "\n");
