@@ -1,16 +1,9 @@
-import bean.ClassDetails;
 import bean.Commit;
 import bean.Settings;
 import br.com.metricminer2.MetricMiner2;
 import br.com.metricminer2.RepositoryMining;
 import br.com.metricminer2.Study;
 import br.com.metricminer2.scm.GitRepository;
-import br.com.metricminer2.scm.SCM;
-import br.com.metricminer2.scm.SCMRepository;
-import br.com.metricminer2.scm.commitrange.AllCommits;
-import br.com.metricminer2.scm.commitrange.CommitRange;
-import br.com.metricminer2.scm.commitrange.Commits;
-import com.google.common.collect.Lists;
 import util.ReverseAllCommits;
 import util.TSVFile;
 
@@ -26,33 +19,45 @@ import org.eclipse.jgit.api.errors.InvalidRemoteException;
 import org.eclipse.jgit.api.errors.TransportException;
 
 public class Main implements Study {
-    ArrayList<Commit> commits;
+	ArrayList<Commit> commits;
+	private static String currentRepository;
 
-    public static void main(String[] args) {
-    	
-    	File dir = new File(Costants.LOCAL_REPO_PATH);
-    	File outputDir = new File(Costants.OUTPUT_DIR_PATH);
-    	try {
+	public static void main(String[] args) {
+
+		File dir = new File(Costants.LOCAL_REPO_PATH);
+		File outputDir = new File(Costants.OUTPUT_DIR_PATH);
+		try {
 			Settings settings = new SettingsParser(Costants.SETTINGS_PATH).read();
-			
+
 			if(!outputDir.exists()){
 				outputDir.mkdir();
 			}
 			else{
 				emptyDir(outputDir);
 			}
-			
-			if(!dir.exists()){
-	    		dir.mkdir();
-	    	}
-			else{
-				emptyDir(dir);
+
+
+
+			if(settings.getRepositoryPath().trim().startsWith("http")){
+				System.out.println("Downloading repository.............");
+				currentRepository = settings.getRepositoryPath();
+
+				if(!dir.exists()){
+					dir.mkdir();
+				}
+				else{
+					emptyDir(dir);
+				}
+
+				Git.cloneRepository()
+						.setURI(currentRepository).setDirectory(dir)
+						.call();
+
+			}else{
+				currentRepository = settings.getRepositoryPath();
 			}
-			System.out.println("Downloading repository.............");
-			Git git = Git.cloneRepository()
-					  .setURI(settings.getRepositoryPath() ).setDirectory(dir)
-					  .call();
-			
+
+
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -66,58 +71,55 @@ public class Main implements Study {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-        new MetricMiner2().start(new Main());
-    }
 
-    public void execute() {
-        MyVisitor myVisitor = new MyVisitor();
-        
-        System.out.println("Parsing repository.............");
+		new MetricMiner2().start(new Main());
+	}
 
-        SCMRepository scm = GitRepository.singleProject(Costants.LOCAL_REPO_PATH);
-        CommitRange commitRange = Commits.all();
+	public void execute() {
+		MyVisitor myVisitor = new MyVisitor();
 
-        new RepositoryMining()
-                .in(GitRepository.singleProject(Costants.LOCAL_REPO_PATH))
-                //.through(Commits.all())
-                .through(new ReverseAllCommits())
-                .process(myVisitor, new TSVFile(Costants.OUTPUT_DIR_PATH+"//commitsLog.txt") )
-                .mine();
+		System.out.println("Parsing repository.............");
 
-        commits = myVisitor.getCommits();
+		new RepositoryMining()
+				.in(GitRepository.singleProject(currentRepository))
+				//.through(Commits.all())
+				.through(new ReverseAllCommits())
+				.process(myVisitor, new TSVFile(Costants.OUTPUT_DIR_PATH+"//commitsLog.tsv") )
+				.mine();
 
-        HashSet<String> hashSet = new HashSet<String>(myVisitor.getAllClasses());
-        if(hashSet.size() > 0){
-        	try {
-                PrintWriter printWriter = new PrintWriter(Costants.OUTPUT_DIR_PATH+"//classesList.txt", "UTF-8");
+		commits = myVisitor.getCommits();
 
-                for(String clas : hashSet){
-                    printWriter.append(clas + "\n");
-                }
+		HashSet<String> hashSet = new HashSet<String>(myVisitor.getAllClasses());
+		if(hashSet.size() > 0){
+			try {
+				PrintWriter printWriter = new PrintWriter(Costants.OUTPUT_DIR_PATH+"//classesList.txt", "UTF-8");
 
-                printWriter.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+				for(String clas : hashSet){
+					printWriter.append(clas + "\n");
+				}
+
+				printWriter.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
 		}
 	}
-    
-    private static void emptyDir(File dir){
-    	if(dir.isDirectory()){
-    		final File[] files = dir.listFiles();
-    		for (File f: files) {
-    			if(f.isDirectory()){
-    				emptyDir(f);
-    				f.delete();
-    			}
-    			else{
-    				f.delete();
-    			}
-    		}
-    			
-    	}
-    }
+
+	private static void emptyDir(File dir){
+		if(dir.isDirectory()){
+			final File[] files = dir.listFiles();
+			for (File f: files) {
+				if(f.isDirectory()){
+					emptyDir(f);
+					f.delete();
+				}
+				else{
+					f.delete();
+				}
+			}
+
+		}
+	}
 }

@@ -5,13 +5,13 @@ package bean;
  */
 public class Settings {
 
-    private String repositoryPath;
+    private String onlineRrepositoryPath;
 
     public String getRepositoryPath() {
-        return repositoryPath;
+        return onlineRrepositoryPath;
     }
 
-    public void setRepositoryPath(String repositoryPath) {
-        this.repositoryPath = repositoryPath;
+	public void setRepositoryPath(String repositoryPath) {
+        this.onlineRrepositoryPath = repositoryPath;
     }
 }

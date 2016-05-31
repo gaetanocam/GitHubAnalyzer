@@ -2,7 +2,6 @@ import bean.ClassDetails;
 import org.eclipse.jdt.core.dom.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by Placido Russo on 12/05/2016.
@@ -18,7 +17,7 @@ public class JavaClassVisitor extends ASTVisitor {
     @Override
     public boolean visit(TypeDeclaration node) {
         int start = ((CompilationUnit) node.getRoot()).getLineNumber(node.getStartPosition());
-        int end = ((CompilationUnit) node.getRoot()).getLineNumber(node.getLength() + node.getStartPosition());
+        int end = ((CompilationUnit) node.getRoot()).getLineNumber(node.getLength() -1  + node.getStartPosition());
 
         ClassDetails c = new ClassDetails();
         c.setPath(path);
@@ -28,12 +27,12 @@ public class JavaClassVisitor extends ASTVisitor {
 
         modifiedClasses.add(c);
 
-        /*
-        System.out.println("TypeDeclaration: "+ node.getName());
-        System.out.println("start: "+start);
-        System.out.println("end: "+end);
-        System.out.println(node.toString());
-        */
+        
+        //System.out.println("TypeDeclaration: "+ node.getName());
+        //System.out.println("start: "+start);
+        //System.out.println("end: "+end);
+        //System.out.println(node.toString());
+        
 
 
         return super.visit(node);
