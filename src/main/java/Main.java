@@ -40,7 +40,7 @@ public class Main implements Study {
 
 			if(settings.getRepositoryPath().trim().startsWith("http")){
 				System.out.println("Downloading repository.............");
-				currentRepository = Costants.OUTPUT_DIR_PATH;
+				currentRepository = settings.getRepositoryPath();
 
 				if(!dir.exists()){
 					dir.mkdir();
@@ -52,6 +52,8 @@ public class Main implements Study {
 				Git.cloneRepository()
 						.setURI(currentRepository).setDirectory(dir)
 						.call();
+
+				currentRepository = Costants.LOCAL_REPO_PATH;
 
 			}else{
 				currentRepository = settings.getRepositoryPath();
