@@ -40,7 +40,7 @@ public class Main implements Study {
 
 			if(settings.getRepositoryPath().trim().startsWith("http")){
 				System.out.println("Downloading repository.............");
-				currentRepository = settings.getRepositoryPath();
+				currentRepository = Costants.OUTPUT_DIR_PATH;
 
 				if(!dir.exists()){
 					dir.mkdir();
