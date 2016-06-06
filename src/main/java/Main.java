@@ -19,13 +19,14 @@ import org.eclipse.jgit.api.errors.TransportException;
 
 public class Main implements Study {
 	private static String currentRepository;
+	private static Settings settings;
 
 	public static void main(String[] args) {
 
 		File dir = new File(Costants.LOCAL_REPO_PATH);
 		File outputDir = new File(Costants.OUTPUT_DIR_PATH);
 		try {
-			Settings settings = new SettingsParser(Costants.SETTINGS_PATH).read();
+			settings = new SettingsParser(Costants.SETTINGS_PATH).read();
 
 			if(!outputDir.exists()){
 				outputDir.mkdir();
@@ -76,7 +77,7 @@ public class Main implements Study {
 	}
 
 	public void execute() {
-		MyVisitor myVisitor = new MyVisitor();
+		MyVisitor myVisitor = new MyVisitor(settings.getBranchName());
 
 		System.out.println("Parsing repository.............");
 

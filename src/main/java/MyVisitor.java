@@ -16,34 +16,44 @@ import java.util.*;
 public class MyVisitor implements CommitVisitor {
 	// List of list of classDetails present in each commit
 	// Repository status for each commit
-	private ArrayList<HashMap<String, ArrayList<ClassDetails>>> commitsHistory;
+	private HashMap<String, ArrayList<ClassDetails>> prevModificationsMap;
 	private ArrayList<String> allClasses;
+	private String branchName;
 
-	public MyVisitor() {
-		commitsHistory = new ArrayList<HashMap<String, ArrayList<ClassDetails>>>();
+	public MyVisitor(String branchName) {
 		allClasses = new ArrayList<String>();
+		this.branchName = branchName;
 	}
 
 	public void process(SCMRepository scmRepository, Commit commit, PersistenceMechanism writer) {
+		
+		Set<String> branches = commit.getBranches();
+		
+		boolean isInBranch = false;
+		
+		for(String branch : branches){
+			if(branch.equals(branchName)){
+				isInBranch = true;
+			}
+		}
+		
+		if(!isInBranch){
+			return;
+		}
 
 		// key = path, value = list of classDetails
 		HashMap<String, ArrayList<ClassDetails>> modificationsMap = new HashMap<String, ArrayList<ClassDetails>>();
-		if (!commitsHistory.isEmpty()) {
+		if (prevModificationsMap != null) {
 			// copying modificationsMap of previous commit into current
 			// modificationsMap
-			modificationsMap = new HashMap<String, ArrayList<ClassDetails>>(
-					commitsHistory.get(commitsHistory.size() - 1));
+			modificationsMap = prevModificationsMap;
 
 			// set to false modified parameter for each class
 			Set<String> keySet = modificationsMap.keySet();
 			for (String key : keySet) {
 				ArrayList<ClassDetails> prevList = modificationsMap.get(key);
-				ArrayList<ClassDetails> currentList = new ArrayList<ClassDetails>();
-				modificationsMap.replace(key, currentList);
 				for (ClassDetails prevClass : prevList) {
-					ClassDetails currentClass = new ClassDetails(prevClass);
-					currentClass.setModified(false);
-					currentList.add(currentClass);
+					prevClass.setModified(false);
 				}
 			}
 		}
@@ -61,7 +71,6 @@ public class MyVisitor implements CommitVisitor {
 			new JDTRunner().visit(visitor, new ByteArrayInputStream(m.getSourceCode().getBytes()));
 
 			currentList = visitor.getModifiedClasses();
-			// modificationsList.addAll(visitor.getModifiedClasses());
 
 			String diff = m.getDiff();
 			String[] lines = diff.split("\n");
@@ -103,7 +112,7 @@ public class MyVisitor implements CommitVisitor {
 
 			// Update history of commits
 			// first commit case
-			if (commitsHistory.isEmpty())
+			if (prevModificationsMap == null)
 				modificationsMap.put(m.getNewPath(), currentList);
 			else {
 				// 3 cases:
@@ -138,12 +147,9 @@ public class MyVisitor implements CommitVisitor {
 		writer.write(commit.getDate().getTimeInMillis(), line);
 
 		// add modificationsMap to list of commits
-		commitsHistory.add(modificationsMap);
+		prevModificationsMap = modificationsMap;
 	}
 
-	public ArrayList<HashMap<String, ArrayList<ClassDetails>>> getCommitsHistory() {
-		return commitsHistory;
-	}
 
 	public String name() {
 		return "MyVisitor";

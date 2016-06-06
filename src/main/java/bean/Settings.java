@@ -6,8 +6,17 @@ package bean;
 public class Settings {
 
     private String onlineRrepositoryPath;
+    private String branchName;
 
-    public String getRepositoryPath() {
+    public String getBranchName() {
+		return branchName;
+	}
+
+	public void setBranchName(String branchName) {
+		this.branchName = branchName;
+	}
+
+	public String getRepositoryPath() {
         return onlineRrepositoryPath;
     }
 

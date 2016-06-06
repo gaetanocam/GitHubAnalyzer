@@ -11,6 +11,7 @@ import java.io.IOException;
 public class SettingsParser {
 
     private final String REPO_PATH_KEY = "repository_path";
+    private final String BRANCH_NAME_KEY = "branch_name";
 
     BufferedReader br = null;
 
@@ -31,6 +32,9 @@ public class SettingsParser {
                     case REPO_PATH_KEY:{
                         settings.setRepositoryPath(keyValuePair[1]);
                         break;
+                    }
+                    case BRANCH_NAME_KEY:{
+                    	settings.setBranchName(keyValuePair[1]);
                     }
                 }
             }
