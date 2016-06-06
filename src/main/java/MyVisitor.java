@@ -14,27 +14,17 @@ import java.util.*;
  * Created by Placido Russo on 10/05/2016.
  */
 public class MyVisitor implements CommitVisitor {
-	private ArrayList<bean.Commit> commits = new ArrayList<bean.Commit>();
-	private Map<String, Integer> files;
 	// List of list of classDetails present in each commit
 	// Repository status for each commit
-	private ArrayList<HashMap<String, ArrayList<ClassDetails>>> commitsHistory = new ArrayList<HashMap<String, ArrayList<ClassDetails>>>();
-	private ArrayList<String> allClasses = new ArrayList<String>();
+	private ArrayList<HashMap<String, ArrayList<ClassDetails>>> commitsHistory;
+	private ArrayList<String> allClasses;
 
 	public MyVisitor() {
-		this.files = new Hashtable<String, Integer>();
-	}
-
-	public ArrayList<bean.Commit> getCommits() {
-		return commits;
+		commitsHistory = new ArrayList<HashMap<String, ArrayList<ClassDetails>>>();
+		allClasses = new ArrayList<String>();
 	}
 
 	public void process(SCMRepository scmRepository, Commit commit, PersistenceMechanism writer) {
-
-		bean.Commit currentCommit = new bean.Commit();
-		currentCommit.setHash(commit.getHash());
-		currentCommit.setAuthor(commit.getAuthor().toString());
-		currentCommit.setTimestamp(commit.getDate().getTimeInMillis());
 
 		// key = path, value = list of classDetails
 		HashMap<String, ArrayList<ClassDetails>> modificationsMap = new HashMap<String, ArrayList<ClassDetails>>();
@@ -62,22 +52,16 @@ public class MyVisitor implements CommitVisitor {
 
 			ArrayList<ClassDetails> currentList;
 
-			try {
-				scmRepository.getScm().checkout(commit.getHash());
+			if (!m.fileNameEndsWith(".java"))
+				continue;
 
-				if (!m.fileNameEndsWith(".java"))
-					continue;
+			System.out.println(m.getFileName());
 
-				System.out.println(m.getFileName());
+			JavaClassVisitor visitor = new JavaClassVisitor(m.getNewPath());
+			new JDTRunner().visit(visitor, new ByteArrayInputStream(m.getSourceCode().getBytes()));
 
-				JavaClassVisitor visitor = new JavaClassVisitor(m.getNewPath());
-				new JDTRunner().visit(visitor, new ByteArrayInputStream(m.getSourceCode().getBytes()));
-
-				currentList = visitor.getModifiedClasses();
-				// modificationsList.addAll(visitor.getModifiedClasses());
-			} finally {
-				scmRepository.getScm().reset();
-			}
+			currentList = visitor.getModifiedClasses();
+			// modificationsList.addAll(visitor.getModifiedClasses());
 
 			String diff = m.getDiff();
 			String[] lines = diff.split("\n");
@@ -136,11 +120,6 @@ public class MyVisitor implements CommitVisitor {
 					modificationsMap.replace(m.getNewPath(), currentList);
 				}
 			}
-
-			currentCommit.setModifiedClasses(currentList);
-			commits.add(currentCommit);
-
-			plusOne(m.getNewPath());
 		}
 
 		String line = "";
@@ -164,20 +143,6 @@ public class MyVisitor implements CommitVisitor {
 
 	public ArrayList<HashMap<String, ArrayList<ClassDetails>>> getCommitsHistory() {
 		return commitsHistory;
-	}
-
-	public Map<String, Integer> getFiles() {
-		return files;
-	}
-
-	private void plusOne(String file) {
-
-		if (!files.containsKey(file))
-			files.put(file, 0);
-
-		Integer currentQty = files.get(file);
-		files.put(file, currentQty + 1);
-
 	}
 
 	public String name() {

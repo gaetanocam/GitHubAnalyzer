@@ -1,4 +1,3 @@
-import bean.Commit;
 import bean.Settings;
 import br.com.metricminer2.MetricMiner2;
 import br.com.metricminer2.RepositoryMining;
@@ -19,7 +18,6 @@ import org.eclipse.jgit.api.errors.InvalidRemoteException;
 import org.eclipse.jgit.api.errors.TransportException;
 
 public class Main implements Study {
-	ArrayList<Commit> commits;
 	private static String currentRepository;
 
 	public static void main(String[] args) {
@@ -88,8 +86,6 @@ public class Main implements Study {
 				.through(new ReverseAllCommits())
 				.process(myVisitor, new TSVFile(Costants.OUTPUT_DIR_PATH+"//commitsLog.tsv") )
 				.mine();
-
-		commits = myVisitor.getCommits();
 
 		HashSet<String> hashSet = new HashSet<String>(myVisitor.getAllClasses());
 		if(hashSet.size() > 0){
