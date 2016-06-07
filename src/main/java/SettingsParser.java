@@ -34,7 +34,9 @@ public class SettingsParser {
                         break;
                     }
                     case BRANCH_NAME_KEY:{
-                    	settings.setBranchName(keyValuePair[1]);
+                        String value = keyValuePair[1].trim().length() > 0 ? keyValuePair[1] : "master";
+                    	settings.setBranchName(value);
+                        break;
                     }
                 }
             }
