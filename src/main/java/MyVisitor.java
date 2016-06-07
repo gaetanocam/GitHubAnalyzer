@@ -18,11 +18,11 @@ public class MyVisitor implements CommitVisitor {
 	// Repository status for each commit
 	private HashMap<String, ArrayList<ClassDetails>> prevModificationsMap;
 	private ArrayList<String> allClasses;
-	private String branchName;
+	private String[] branchesNames;
 
-	public MyVisitor(String branchName) {
+	public MyVisitor(String[] branchName) {
 		allClasses = new ArrayList<String>();
-		this.branchName = branchName;
+		this.branchesNames = branchesNames;
 	}
 
 	public void process(SCMRepository scmRepository, Commit commit, PersistenceMechanism writer) {
@@ -32,8 +32,15 @@ public class MyVisitor implements CommitVisitor {
 		boolean isInBranch = false;
 		
 		for(String branch : branches){
-			if(branch.equals(branchName)){
-				isInBranch = true;
+			for(String selectedBranch : branchesNames){
+				if(branch.equals(selectedBranch)){
+					isInBranch = true;
+					break;
+				}
+			}
+
+			if(isInBranch){
+				break;
 			}
 		}
 		

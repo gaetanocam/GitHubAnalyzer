@@ -77,7 +77,7 @@ public class Main implements Study {
 	}
 
 	public void execute() {
-		MyVisitor myVisitor = new MyVisitor(settings.getBranchName());
+		MyVisitor myVisitor = new MyVisitor(settings.getBranchesNames());
 
 		System.out.println("Parsing repository.............");
 
