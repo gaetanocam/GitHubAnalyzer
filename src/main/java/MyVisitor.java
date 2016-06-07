@@ -20,7 +20,7 @@ public class MyVisitor implements CommitVisitor {
 	private ArrayList<String> allClasses;
 	private String[] branchesNames;
 
-	public MyVisitor(String[] branchName) {
+	public MyVisitor(String[] branchesNames) {
 		allClasses = new ArrayList<String>();
 		this.branchesNames = branchesNames;
 	}
